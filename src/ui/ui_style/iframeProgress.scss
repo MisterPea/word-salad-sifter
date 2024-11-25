@@ -1,0 +1,69 @@
+@import "../../style/mixin.scss";
+
+// .word_salad-overlay {
+//   &_inner {
+//     padding: 5px 0;
+//     width: 350px;
+//     height: 100px;
+//     // background-color: #ffffff;
+//     border-radius: 4px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     box-shadow:
+//       rgba(0, 0, 0, 0.16) 0px 3px 6px,
+//       rgba(0, 0, 0, 0.23) 0px 3px 6px;
+//   }
+// }
+// .word_salad-overlay_wrapper {
+//   background-color: rgba(255, 255, 255, 0.46);
+//   width: 100vw;
+//   height: 100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   padding: 0;
+//   margin: 0;
+// }
+
+// .word_salad-overlay {
+//   &_inner {
+//     padding: 5px 0;
+//     width: 350px;
+//     height: 100px;
+//     // background-color: #ffffff;
+//     border-radius: 4px;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     box-shadow:
+//       rgba(0, 0, 0, 0.16) 0px 3px 6px,
+//       rgba(0, 0, 0, 0.23) 0px 3px 6px;
+//   }
+//   &-top_info {
+//     margin-bottom: -10px;
+//     flex: 1;
+//     p {
+//       @include font-light;
+//     }
+//   }
+//   &-bottom_info {
+//     flex: 1;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: space-evenly;
+//     height: 50px;
+//   }
+//   &-bar {
+//     width: 300px;
+//     height: 8px;
+//     border-radius: 10px;
+//     background-color: var(--green);
+//   }
+//   &-bar-time {
+//     @include font-light;
+//     font-size: 12px;
+//     text-align: center;
+//   }
+// }

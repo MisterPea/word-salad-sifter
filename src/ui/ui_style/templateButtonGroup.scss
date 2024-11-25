@@ -1,0 +1,31 @@
+/* Template Group */
+.template_module{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.template_selection {
+  h3 {
+    // margin: 0 auto;
+    width: fit-content;
+    font-size: 14px;
+    @include font-regular;
+    color: --black-one;
+  }
+}
+.template_button_group {
+  &-missing_template {
+    @include font-regular;
+    color: var(--black-three);
+    opacity: 0.8;
+    font-size: 14px;
+    padding: 0 10px;
+    // text-align: center;
+    height: fit-content;
+  }
+  &-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}

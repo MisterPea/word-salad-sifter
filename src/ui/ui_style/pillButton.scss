@@ -1,0 +1,41 @@
+/* Pill Button */
+.pill_button {
+  cursor: pointer;
+  padding: 0;
+  background: none;
+  border: none;
+  @include font-light;
+  // padding: 0 15px;
+  border-radius: 20px;
+  width: 100%;
+  transition: all 400ms var(--easeOutCubic);
+  &.secondary {
+    border: 1px solid var(--black-two);
+    &:hover {
+      background-color: #e5e5e590;
+      border: 1px solid #40404090;
+      color: #40404090;
+    }
+  }
+  &.primary-dark {
+    background-color: var(--black-two);
+    color: #f5f5f5;
+  }
+  &.primary-green {
+    background-color: var(--green);
+    color: #f5f5f5;
+  }
+  &.small {
+    height: 29px;
+  }
+  &.large {
+    height: 40px;
+    font-size: 17px;
+  }
+  &.disabled {
+    cursor: default;
+    filter: saturate(0.6);
+    opacity: 0.7;
+    color: #f5f5f590;
+  }
+}

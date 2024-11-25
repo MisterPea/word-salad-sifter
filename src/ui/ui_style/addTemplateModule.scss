@@ -1,0 +1,25 @@
+.add_template {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  h3 {
+    margin-bottom: 0;
+    width: fit-content;
+    font-size: 14px;
+    @include font-regular;
+    color: --black-one;
+  }
+  &-text_input_wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  &-button_wrap {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+  }
+  &.-text_input_wrap {
+    @include grid-four;
+  }
+}

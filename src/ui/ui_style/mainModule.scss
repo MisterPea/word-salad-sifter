@@ -1,0 +1,52 @@
+#__appRoot {
+  height: 100%;
+  position: absolute;
+  box-sizing: border-box;
+  inset: 0px;
+  padding: 10px;
+}
+.main_module {
+  height: 100%;
+  h1 {
+    @include font-bold;
+    color: var(--black-one);
+    width: fit-content;
+    margin: 0 auto;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+  &-top {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+  }
+  &-sift_wrapper {
+    border: 1px solid #40404040;
+    padding: 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+}
+.main_module-interior {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.main_module-loading_wait{
+  height: 100%;
+}
+
+@keyframes textShine {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

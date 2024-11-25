@@ -1,0 +1,98 @@
+.main_module-no_api {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+
+  a {
+    color: rgb(83, 120, 183);
+  }
+  p {
+    @include font-light;
+    // color: var(--black-four);
+    color: rgb(31, 83, 109);
+    font-size: 13px;
+  }
+  h3 {
+    margin: 20px 0 0;
+    @include font-regular;
+    color: rgb(21, 41, 51);
+    // color: var(--black-one);
+  }
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  li {
+    background-color: var(--white);
+    border: 0.5px solid #40404040;
+    border-radius: 10px;
+    padding: 5px 10px;
+    @include font-light;
+    font-size: 12px;
+    line-height: 140%;
+    margin: 8px 0;
+    color: var(--black-one);
+    ol > li:first-child {
+      margin-top: 2.5px;
+    }
+    ol > li {
+      border: none;
+      padding: 0;
+    }
+    ol {
+      list-style: outside;
+      padding-left: 15px;
+    }
+    span {
+      @include font-regular;
+    }
+  }
+}
+.main_module-no_api-header {
+  display: flex;
+  gap: 10px;
+  h1 {
+    width: 100%;
+    margin: 0 0 5px;
+    font-size: 18px;
+    color: var(--black-one);
+  }
+  h2 {
+    @include font-regular;
+    font-size: 14px;
+    margin: 0;
+    color: var(--black-two);
+  }
+  img {
+    flex-shrink: 0;
+    display: block;
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(0px 1px 2px rgba(60, 64, 67, 0.3)) drop-shadow(0px 2px 6px rgba(60, 64, 67, 0.15));
+  }
+}
+.main_module-no_api-process_wrap {
+  background-color: var(--white);
+}
+.main_module-no_api-easy_use-header {
+  padding-top: 10px;
+}
+
+.main_module-no_api-input {
+  width: 100%;
+  h3 {
+    margin: 30px 0 10px;
+    text-align: center;
+    @include font-regular;
+    color: rgb(21, 41, 51);
+  }
+}
+
+.main_module-no_api-walkthrough {
+  margin-top: 40px;
+  height: 25px;
+  text-align: center;
+  bottom: 0;
+}

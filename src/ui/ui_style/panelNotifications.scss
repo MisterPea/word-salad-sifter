@@ -1,0 +1,316 @@
+.panel_notifications {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #d0d0d0cb;
+  opacity: 1;
+  backdrop-filter: blur(3px);
+  z-index: 100;
+  @include font-regular;
+  font-size: 16px;
+  opacity: 0;
+  visibility: hidden;
+
+  &-wrap {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    h2 {
+      text-align: center;
+      margin: 0 0 10px;
+      font-size: 18px;
+      @include font-regular;
+      color: var(--black-two);
+    }
+  }
+}
+
+.panel_notifications-bar {
+  border: 1px solid #90909030;
+  background-color: var(--background);
+  padding: 30px 20px;
+  border-radius: 10px;
+  position: relative;
+  width: fit-content;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  max-height: 90%;
+  height: 140px;
+  transform: translateY(60px);
+  opacity: 0;
+  animation: 1000ms panelInStart var(--easeOutCubic) forwards;
+  ul {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  li {
+    margin-left: 10px;
+    position: relative;
+    color: #404040a8;
+    transition: color 400ms var(--easeOutCubic);
+    &::after {
+      content: "";
+      display: block;
+      position: absolute;
+      inset: 0;
+      height: 12px;
+      width: 12px;
+      opacity: 1;
+      background-color: var(--background);
+      border: 1px solid var(--black-two);
+      border-radius: 10px;
+      left: -19px;
+      top: 3px;
+      transition: all 500ms var(--easeInOutCubic);
+      transition-delay: 400ms;
+    }
+  }
+}
+.panel_notifications-bar-progress {
+  position: relative;
+  height: 100%;
+  width: 4px;
+  border-radius: 10px;
+  padding: 20px 0;
+  background: repeating-linear-gradient(-5deg, #f1f1f1, #f1f1f1, 5px, #90909080 5px, #90909080 10px);
+  background-size: 200% 200%;
+  animation: barberPole 5s linear infinite;
+  &::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--green);
+    transform: scaleY(0);
+    transform-origin: top;
+    border-radius: 10px;
+    transition: transform 500ms var(--easeInOutCubic);
+  }
+  &::before {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--red);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    border-radius: 10px;
+    transition: transform 500ms var(--easeInOutCubic);
+  }
+}
+
+.panel_notifications.zero {
+  animation: 400ms zeroLoad var(--easeInOutCubic) both;
+  ul,
+  li,
+  li::after {
+    opacity: 1;
+    transition: opacity 500ms var(--easeInOutCubic);
+  }
+}
+
+.panel_notifications-bar.one {
+  ul li:nth-child(1) {
+    color: var(--green);
+    &::after {
+      background-color: var(--green);
+      border: 1px solid var(--green);
+    }
+  }
+  .panel_notifications-bar-progress::after {
+    transform: scaleY(0.2);
+  }
+}
+
+.panel_notifications-bar.one {
+  ul li:nth-child(1) {
+    color: var(--green);
+    &::after {
+      background-color: var(--green);
+      border: 1px solid var(--green);
+    }
+  }
+  .panel_notifications-bar-progress::after {
+    transform: scaleY(0.2);
+  }
+}
+
+.panel_notifications-bar.two {
+  ul li:nth-child(2) {
+    color: var(--green);
+    &::after {
+      background-color: var(--green);
+      border: 1px solid var(--green);
+    }
+  }
+  .panel_notifications-bar-progress::after {
+    transform: scaleY(0.5);
+  }
+}
+.panel_notifications-bar.three {
+  ul li {
+    color: var(--green);
+    &::after {
+      background-color: var(--green);
+      border: 1px solid var(--green);
+    }
+  }
+  .panel_notifications-bar-progress::after {
+    transform: scaleY(0.85);
+  }
+}
+
+.panel_notifications-bar.four {
+  ul li::after {
+    background-color: var(--green);
+    border: 1px solid var(--green);
+  }
+  .panel_notifications-bar-progress::after {
+    transform: scaleY(1);
+  }
+}
+
+.panel_notifications-bar.error {
+  ul li::after {
+    background-color: var(--red);
+    border: 1px solid var(--red);
+  }
+  .panel_notifications-bar-progress::after {
+    transform: scaleY(0);
+  }
+  .panel_notifications-bar-progress {
+    background-color: var(--red);
+    // transform: scaleY(1);
+  }
+}
+
+.panel_notifications.hidden {
+  animation: removeLoad 600ms var(--easeInOutCubic);
+  animation-fill-mode:forwards;
+  animation-direction: backwards;
+  ul,
+  li,
+  li::after {
+    opacity: 0;
+  }
+  .panel_notifications-bar-progress {
+    opacity: 0;
+    &::after {
+      opacity: 0;
+    }
+    &::before {
+      opacity: 0;
+    }
+  }
+}
+
+/* SVG */
+.panel_notifications-svg_wrapper {
+  height: 100%;
+  width: 100%;
+  inset: 0;
+  display: block;
+  position: absolute;
+  background-color: #f1f1f1f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  opacity: 0;
+  animation: siftCompleteAnimation 500ms var(--easeInOutCubic) forwards;
+  animation-delay: 500ms;
+}
+.panel_notifications-svg_wrapper-inner {
+  transform: translate3d(0, 30px, 0);
+  opacity: 0;
+  animation: siftAnimationIcon 500ms var(--easeInOutCubic) forwards;
+  animation-delay: 400ms;
+  p {
+    margin-bottom: 0;
+    text-align: center;
+    color: var(--black-two);
+    &:last-child {
+      margin-top: 0;
+      color: var(--black-four);
+    }
+  }
+}
+
+@keyframes panelInStart {
+  0% {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes siftAnimationIcon {
+  0% {
+    transform: translate3d(0, 30px, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0px, 0);
+    opacity: 1;
+  }
+}
+
+@keyframes siftCompleteAnimation {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zeroLoad {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+  1% {
+    visibility: visible;
+    opacity: 0;
+  }
+  100% {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+@keyframes removeLoad {
+  0% {
+    visibility: visible;
+    opacity: 1;
+  }
+  99% {
+    visibility: visible;
+    opacity: 0;
+  }
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+
+
+@keyframes barberPole {
+  100% {
+    background-position: 100% -100%;
+  }
+}
