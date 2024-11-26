@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 .add_template {
   display: flex;
   flex-direction: column;
@@ -6,7 +8,7 @@
     margin-bottom: 0;
     width: fit-content;
     font-size: 14px;
-    @include font-regular;
+    @include mixin.font-regular;
     color: --black-one;
   }
   &-text_input_wrap {
@@ -20,6 +22,6 @@
     gap: 10px;
   }
   &.-text_input_wrap {
-    @include grid-four;
+    @include mixin.grid-four;
   }
 }

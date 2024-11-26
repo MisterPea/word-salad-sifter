@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 .checkbox-wrap {
   display: flex;
   flex-direction: column;
@@ -11,7 +13,7 @@
 }
 
 .checkbox-wrap label {
-  @include font-light;
+  @include mixin.font-light;
   color: var(--black-two);
   // font-family: var(--main-font);
   font-size: 12px;

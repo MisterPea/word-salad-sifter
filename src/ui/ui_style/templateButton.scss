@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 /* Template Button */
 .template_button {
   width: 100%;
@@ -29,7 +31,7 @@
 
   button {
     cursor: pointer;
-    @include font-light;
+    @include mixin.font-light;
     letter-spacing: 0.45px;
     font-size: 13px;
     color: var(--black-two);

@@ -1,4 +1,4 @@
-@import "../../style/mixin.scss";
+// @import "../../style/mixin.scss";
 
 // .word_salad-overlay {
 //   &_inner {
@@ -44,7 +44,7 @@
 //     margin-bottom: -10px;
 //     flex: 1;
 //     p {
-//       @include font-light;
+//       @include mixin.font-light;
 //     }
 //   }
 //   &-bottom_info {
@@ -62,7 +62,7 @@
 //     background-color: var(--green);
 //   }
 //   &-bar-time {
-//     @include font-light;
+//     @include mixin.font-light;
 //     font-size: 12px;
 //     text-align: center;
 //   }

@@ -1,10 +1,11 @@
+@use "../../style/mixin.scss";
 /* Pill Button */
 .pill_button {
   cursor: pointer;
   padding: 0;
   background: none;
   border: none;
-  @include font-light;
+  @include mixin.font-light;
   // padding: 0 15px;
   border-radius: 20px;
   width: 100%;

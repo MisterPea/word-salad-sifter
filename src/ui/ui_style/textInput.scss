@@ -1,3 +1,4 @@
+@use "../../style/mixin.scss";
 /* Text Input */
 .text_input-wrapper {
   input {
@@ -9,7 +10,7 @@
     padding: 0 10px;
     padding-right: 30px;
     color: var(--black-two);
-    @include font-light;
+    @include mixin.font-light;
     background-color: var(--white);
 
     &::placeholder {
@@ -25,13 +26,13 @@
     }
   }
   .text_input-label_top {
-    @include font-light;
+    @include mixin.font-light;
     color: var(--black-two);
     font-size: 11px;
     margin-left: 5px;
   }
   .text_input-error_label {
-    @include font-regular;
+    @include mixin.font-regular;
     color: red;
     font-size: 12px;
     height: 14px;

@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 .extension_footer {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -51,7 +53,7 @@
     ul {
       margin-left: -10px;
       padding-right: 10px;
-      @include font-light;
+      @include mixin.font-light;
       font-size: 13px;
       line-height: 16.5px;
       list-style-position: outside;
@@ -69,7 +71,7 @@
       font-size: 15px;
       width: 100%;
       text-align: center;
-      @include font-regular;
+      @include mixin.font-regular;
       margin: 0 0 20px;
     }
     &-close_btn {

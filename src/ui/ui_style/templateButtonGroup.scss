@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 /* Template Group */
 .template_module{
   display: flex;
@@ -9,13 +11,13 @@
     // margin: 0 auto;
     width: fit-content;
     font-size: 14px;
-    @include font-regular;
+    @include mixin.font-regular;
     color: --black-one;
   }
 }
 .template_button_group {
   &-missing_template {
-    @include font-regular;
+    @include mixin.font-regular;
     color: var(--black-three);
     opacity: 0.8;
     font-size: 14px;

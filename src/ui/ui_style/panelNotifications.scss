@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 .panel_notifications {
   position: absolute;
   inset: 0;
@@ -7,7 +9,7 @@
   opacity: 1;
   backdrop-filter: blur(3px);
   z-index: 100;
-  @include font-regular;
+  @include mixin.font-regular;
   font-size: 16px;
   opacity: 0;
   visibility: hidden;
@@ -23,7 +25,7 @@
       text-align: center;
       margin: 0 0 10px;
       font-size: 18px;
-      @include font-regular;
+      @include mixin.font-regular;
       color: var(--black-two);
     }
   }

@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 #__appRoot {
   height: 100%;
   position: absolute;
@@ -8,7 +10,7 @@
 .main_module {
   height: 100%;
   h1 {
-    @include font-bold;
+    @include mixin.font-bold;
     color: var(--black-one);
     width: fit-content;
     margin: 0 auto;

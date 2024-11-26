@@ -1,3 +1,5 @@
+@use "../../style/mixin.scss";
+
 .main_module-no_api {
   display: flex;
   flex-direction: column;
@@ -8,14 +10,14 @@
     color: rgb(83, 120, 183);
   }
   p {
-    @include font-light;
+    @include mixin.font-light;
     // color: var(--black-four);
     color: rgb(31, 83, 109);
     font-size: 13px;
   }
   h3 {
     margin: 20px 0 0;
-    @include font-regular;
+    @include mixin.font-regular;
     color: rgb(21, 41, 51);
     // color: var(--black-one);
   }
@@ -29,7 +31,7 @@
     border: 0.5px solid #40404040;
     border-radius: 10px;
     padding: 5px 10px;
-    @include font-light;
+    @include mixin.font-light;
     font-size: 12px;
     line-height: 140%;
     margin: 8px 0;
@@ -46,7 +48,7 @@
       padding-left: 15px;
     }
     span {
-      @include font-regular;
+      @include mixin.font-regular;
     }
   }
 }
@@ -60,7 +62,7 @@
     color: var(--black-one);
   }
   h2 {
-    @include font-regular;
+    @include mixin.font-regular;
     font-size: 14px;
     margin: 0;
     color: var(--black-two);
@@ -85,7 +87,7 @@
   h3 {
     margin: 30px 0 10px;
     text-align: center;
-    @include font-regular;
+    @include mixin.font-regular;
     color: rgb(21, 41, 51);
   }
 }
