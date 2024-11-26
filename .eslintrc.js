@@ -16,4 +16,14 @@ module.exports = {
     'no-undef': 'off',
     '@typescript-eslint/no-unused-vars': ['error', { 'varsIgnorePattern': 'chrome' }],
   },
+  overrides: [
+    {
+      files: [
+        "**/*.test.js",
+        "**/*.test.ts",
+        "**/*.test.tsx"
+      ],
+      env: { jest: true }
+    }
+  ]
 };

@@ -1,16 +1,28 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
     "outDir": "./dist/",
     "noImplicitAny": true,
     "module": "es6",
     "target": "ES2021",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "allowJs": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "types": [
+      "jest",
+      "@testing-library/jest-dom"
+    ],
+    "lib": [
+      "dom",
+      "esnext"
+    ]
   },
   "include": [
     "src/**/*.ts",
     "globals.d.ts",
-    "types.ts"
-, "src/stories/Spinner.stories.tsx"  ]
+    "types.ts",
+    "jest.setup.ts",
+    "src/stories/Spinner.stories.tsx",
+    "src/__tests__/ui/circleButton.test.tsx"
+  ]
 }

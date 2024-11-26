@@ -1,6 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getApiKey } from "./background_llmApiCalls";
-import { prompts } from "./prompts";
+import { prompts } from "../prompts";
 
 const MAIN_PROMPT = prompts.main;
 

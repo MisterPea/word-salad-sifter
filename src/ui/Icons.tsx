@@ -23,7 +23,7 @@ export const Icon = {
     </svg>
   ),
   Help: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+    <svg data-testid="help-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
       <mask id="mask0_30_601" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
         <rect x="0.5" y="0.5" width="24" height="24" fill="#D9D9D9" />
       </mask>
@@ -33,7 +33,7 @@ export const Icon = {
     </svg>
   ),
   Settings: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+    <svg data-testid="settings-icon" xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
       <mask id="mask0_30_611" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="25">
         <rect x="0.5" y="0.5" width="24" height="24" fill="#D9D9D9" />
       </mask>

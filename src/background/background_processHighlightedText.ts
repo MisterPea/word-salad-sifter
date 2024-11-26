@@ -1,6 +1,6 @@
-import { _createJobDescriptionTable, populateTable, findInsertionIndexAfterTable } from "./components/_tableFunctions";
+import { _createJobDescriptionTable, populateTable, findInsertionIndexAfterTable } from "../components/_tableFunctions";
 import { llmJobDescriptionProcessing } from "./background_llmProcessing";
-import { _parseJobDescription } from "./components/_parseJobDescription";
+import { _parseJobDescription } from "../components/_parseJobDescription";
 import { batchUpdate, cloneDocument, deleteDocument, getDocument, renameDocument } from "./background_apiCalls";
 import { notifications } from "./background_notifications";
 import { progressIframe } from "./background_processOverlay";

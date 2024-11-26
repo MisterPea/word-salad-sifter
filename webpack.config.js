@@ -6,7 +6,7 @@ module.exports = {
   mode: 'development',
   entry: {
     popup: './src/index.tsx',
-    background: './src/background.ts',
+    background: './src/background/index.ts',
     content: './src/content.ts',
     popupMissingApi: './src/popupMissingApi.tsx',
     processPanel_Index: './src/processPanel_index.tsx'

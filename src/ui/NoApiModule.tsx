@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useState, useRef, useEffect } from 'react';
 import TextInput from './TextInput';
 import PillButton from './PillButton';
-import { validateAnthropicApiKey } from '../background_llmProcessing';
-import { getSetAuth } from '../background_auth';
+import { validateAnthropicApiKey } from '../background/background_llmProcessing';
+import { getSetAuth } from '../background/background_auth';
 
 interface NoApiModuleProps {
   setHasApiKey: React.Dispatch<React.SetStateAction<boolean>>;

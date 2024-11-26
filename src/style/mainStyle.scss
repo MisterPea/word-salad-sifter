@@ -1,18 +1,18 @@
-@import "./mixin.scss";
-@import "../ui/ui_style/addTemplateModule.scss";
-@import "../ui/ui_style/controlledCheckbox.scss";
-@import "../ui/ui_style/pillButton.scss";
-@import "../ui/ui_style/templateButton.scss";
-@import "../ui/ui_style/templateButtonGroup.scss";
-@import "../ui/ui_style/textInput.scss";
-@import "../ui/ui_style/siftAction.scss";
-@import "../ui/ui_style/mainModule.scss";
-@import "../ui/ui_style/circleIconButton.scss";
-@import "../ui/ui_style/footer.scss";
-@import "../ui/ui_style/noApiModule.scss";
-@import "../ui/ui_style/panelNotifications.scss";
-@import "../ui/ui_style/loadingWait.scss";
-@import "../ui/ui_style/iframeProgress.scss";
+@use "mixin.scss";
+@use "../ui/ui_style/addTemplateModule.scss" as *;
+@use "../ui/ui_style/controlledCheckbox.scss" as *;
+@use "../ui/ui_style/pillButton.scss" as *;
+@use "../ui/ui_style/templateButton.scss" as *;
+@use "../ui/ui_style/templateButtonGroup.scss" as *;
+@use "../ui/ui_style/textInput.scss" as *;
+@use "../ui/ui_style/siftAction.scss" as *;
+@use "../ui/ui_style/mainModule.scss" as *;
+@use "../ui/ui_style/circleIconButton.scss" as *;
+@use "../ui/ui_style/footer.scss" as *;
+@use "../ui/ui_style/noApiModule.scss" as *;
+@use "../ui/ui_style/panelNotifications.scss" as *;
+@use "../ui/ui_style/loadingWait.scss" as *;
+@use "../ui/ui_style/iframeProgress.scss" as *;
 
 :root {
   --white: #ffffff;
@@ -38,7 +38,7 @@ ul {
 
 .extension_heading-main {
   color: var(--black-one);
-  @include font-bold;
+  @include mixin.font-bold;
 }
 
 a,

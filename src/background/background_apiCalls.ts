@@ -1,5 +1,5 @@
-import { BatchUpdateRequest } from '../src/types';
-import { getSetAuth } from '../src/background_auth';
+import { BatchUpdateRequest } from '../types';
+import { getSetAuth } from './background_auth';
 
 type ApiBody =
   | { title: string; }  // for createDocument

@@ -2,7 +2,7 @@ import * as React from "react";
 import {useState, useRef, useEffect} from 'react';
 import TextInput from "./TextInput";
 import PillButton from "./PillButton";
-import {getDocument} from "../background_apiCalls";
+import {getDocument} from "../background/background_apiCalls";
 import {TemplateElement} from "../types";
 import TemplateButton from "./TemplateButton";
 import {AnimatePresence, motion} from "framer-motion";

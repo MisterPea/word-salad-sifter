@@ -4,8 +4,8 @@ import CircleIconButton from './CircleIconButton';
 import PillButton from './PillButton';
 import { Icon } from './Icons';
 import TextInput from './TextInput';
-import { validateAnthropicApiKey } from '../background_llmProcessing';
-import { logout } from '../background_auth';
+import { validateAnthropicApiKey } from '../background/background_llmProcessing';
+import { logout } from '../background/background_auth';
 
 
 interface FooterProps {
@@ -115,7 +115,7 @@ const Footer = forwardRef((props: FooterProps, ref: Ref<{ openApiSheet: () => vo
         </div>
         <div className="footer_overlay-button_wrapper">
           {!forcedOpen && <PillButton callback={onInputCancelClick} label='Cancel' size='small' />}
-          <PillButton callback={onInputSubmit} type='primary-dark' label='Submit' size='small' disabled={apiKey.length < 10} />
+          <PillButton data-testid="api-submit-button" callback={onInputSubmit} type='primary-dark' label='Submit' size='small' disabled={apiKey.length < 10} />
         </div>
         <div className="footer_overlay-sign_out-wrapper">
           <PillButton type="secondary" label="Sign Out" size="small" callback={handleSignOutClick} className="extension_footer-center" />
@@ -141,7 +141,6 @@ const Footer = forwardRef((props: FooterProps, ref: Ref<{ openApiSheet: () => vo
 
       <footer className="extension_footer">
         <CircleIconButton onClick={() => handleDialog('help')} type="help" className="extension_footer-left_icon" />
-
         <CircleIconButton onClick={() => handleDialog('api')} type="settings" className="extension_footer-right_icon" />
       </footer>
     </>

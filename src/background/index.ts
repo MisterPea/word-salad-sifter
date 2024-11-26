@@ -1,6 +1,5 @@
 import { getSetAuth } from "./background_auth";
 import { processHighlightedText } from "./background_processHighlightedText";
-import processOverlay from "./background_processOverlay";
 
 // setting side panel deployment
 chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: true })
@@ -94,8 +93,3 @@ export function updateContextMenu(isEnabled: boolean = false) {
     }
   });
 }
-// chrome.tabs.onUpdated.addListener( function (tabId, changeInfo, tab) {
-//   if (changeInfo.status == 'complete') {
-//     processOverlay()
-//   }
-// })

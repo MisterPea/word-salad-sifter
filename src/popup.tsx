@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { useRef, useEffect, useState } from 'react';
 import "./style/mainStyle.scss";
-import { getSetAuth } from "./background_auth";
+import { getSetAuth } from "./background/background_auth";
 import TextInput from './ui/TextInput';
 import Footer from './ui/Footer';
 import TemplateModule from './ui/TemplateModule';
 import SiftAction from './ui/SiftAction';
-import { validateAnthropicApiKey } from './background_llmProcessing';
+import { validateAnthropicApiKey } from './background/background_llmProcessing';
 import useNotifications from './components/hooks/useNotifications';
 import NoApiModule from './ui/NoApiModule';
 import PanelNotifications from './ui/PanelNotifications';
@@ -25,7 +25,7 @@ export default function Popup() {
   const footerRef = useRef(null);
 
   // hook to pull notification passed through session messaging
-  useNotifications(setNotifyText);
+  useNotifications(setNotifyText,);
 
   const isValidApiKey = async (anthropicApiKey: string) => {
     const isValid = await validateAnthropicApiKey(anthropicApiKey);
