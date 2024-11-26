@@ -90,7 +90,7 @@ const Footer = forwardRef((props: FooterProps, ref: Ref<{ openApiSheet: () => vo
     <>
       {/* API Dialogue */}
       {/* Nested ternary is not good - it should be fixed! */}
-      <div className={`footer_overlay-inner${footerDialogue === 'api' ? ' active' : (lowerApiPanelDeployed.current === true ? ' inactive' : '')}`}>
+      <div aria-hidden={!lowerApiPanelDeployed.current === true} className={`footer_overlay-inner${footerDialogue === 'api' ? ' active' : (lowerApiPanelDeployed.current === true ? ' inactive' : '')}`}>
         <div className="footer_overlay-title">
           <h3>Settings</h3>
           {!forcedOpen && <button onClick={() => handleDialog(null)} className="footer_overlay-inner-close_btn">
@@ -114,7 +114,7 @@ const Footer = forwardRef((props: FooterProps, ref: Ref<{ openApiSheet: () => vo
           />
         </div>
         <div className="footer_overlay-button_wrapper">
-          {!forcedOpen && <PillButton callback={onInputCancelClick} label='Cancel' size='small' />}
+          {!forcedOpen && <PillButton data-testid="cancel-button-settings" callback={onInputCancelClick} label='Cancel' size='small' />}
           <PillButton data-testid="api-submit-button" callback={onInputSubmit} type='primary-dark' label='Submit' size='small' disabled={apiKey.length < 10} />
         </div>
         <div className="footer_overlay-sign_out-wrapper">
@@ -136,7 +136,7 @@ const Footer = forwardRef((props: FooterProps, ref: Ref<{ openApiSheet: () => vo
           <li><u>Parsing</u> Click 'Sift Some Word Salad'. If the side panel is closed, right-click for options and click 'Sift Some Word Salad' there.</li>
           <li><u>Track progress.</u> If you have your Chrome Notifications enabled, you will see updates as the job posting is processed.</li>
         </ol>
-        <PillButton callback={() => handleDialog(null)} label='Cancel' size='small' className='footer_overlay-cancel_btn' />
+        <PillButton data-testid="cancel-button-help" callback={() => handleDialog(null)} label='Cancel' size='small' className='footer_overlay-cancel_btn' />
       </div>
 
       <footer className="extension_footer">
