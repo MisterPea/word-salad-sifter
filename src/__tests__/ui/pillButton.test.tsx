@@ -5,6 +5,13 @@ import * as React from 'react';
 describe("Pill button component tests", () => {
   const callback = jest.fn().mockResolvedValue(true);
 
+  beforeEach(() => {
+    jest.clearAllMocks();
+    // This is to combat missing style issues
+    const style = document.createElement('style');
+    document.head.appendChild(style);
+  });
+
   test("Button renders without crashing", () => {
     render(<PillButton label='test' size='small' callback={callback} />);
     const button = screen.getByText('test');

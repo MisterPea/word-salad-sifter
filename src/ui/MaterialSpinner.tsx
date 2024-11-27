@@ -90,7 +90,7 @@ export default function MaterialSpinner({
   };
 
   return (
-    <svg height={(radius * 2) + (strokeWidth * 2)} width={(radius * 2) + (strokeWidth * 2)} >
+    <svg data-testid="material-spinner" height={(radius * 2) + (strokeWidth * 2)} width={(radius * 2) + (strokeWidth * 2)} >
       <g style={{ ...rotateStyle, transformOrigin: 'center' }}>
         {showTrack && <circle cx={radius + strokeWidth} cy={radius + strokeWidth} r={radius} strokeWidth={strokeWidth} stroke={trackColor} fill='none' />}
         <circle cx={radius + strokeWidth} cy={radius + strokeWidth} r={radius}
