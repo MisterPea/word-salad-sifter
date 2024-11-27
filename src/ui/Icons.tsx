@@ -2,18 +2,18 @@ import * as React from 'react';
 
 export const Icon = {
   SelectCircle: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
+    <svg data-testid="select-circle-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17" fill="none">
       <circle cx="8" cy="8.5" r="7.5" stroke="#303030" />
     </svg>
   ),
   SelectCheck: () => (
-    <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg data-testid="select-check-icon" width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="8" cy="8.5" r="7.5" stroke="white" />
       <path d="M6.72281 12L4 9.28169L4.71579 8.5493L6.72281 10.5634L11.2842 6L12 6.71831L6.72281 12Z" fill="white" />
     </svg>
   ),
   RemoveTemplate: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
+    <svg data-testid="remove-template-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
       <mask id="mask0_30_646" style={{ maskType: 'alpha' }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="25">
         <rect y="0.5" width="24" height="24" fill="#303030" />
       </mask>
@@ -43,7 +43,7 @@ export const Icon = {
     </svg>
   ),
   Close: () => (
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+    <svg data-testid="close-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
       <mask id="mask0_45_1126" style={{ maskType: "alpha" }} maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
         <rect width="24" height="24" fill="#D9D9D9" />
       </mask>

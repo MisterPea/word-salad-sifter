@@ -2,7 +2,7 @@ import * as React from 'react';
 import PillButton from './PillButton';
 import Checkbox from './ControlledCheckbox';
 
-interface SiftActionProps {
+export interface SiftActionProps {
   readyToSift: boolean;
   handleSiftClick: () => void;
   autoOpenToggle: React.Dispatch<React.SetStateAction<boolean>>;
