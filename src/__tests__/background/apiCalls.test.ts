@@ -1,6 +1,4 @@
-
-import * as api from '../../background/background_apiCalls';
-import { getDocument, createDocument, batchUpdate, cloneDocument, renameDocument, deleteDocument, makeApiCall } from '../../background/background_apiCalls';
+import { makeApiCall } from '../../background/background_apiCalls';
 import { getSetAuth } from '../../background/background_auth';
 
 jest.mock('../../background/background_auth', () => ({

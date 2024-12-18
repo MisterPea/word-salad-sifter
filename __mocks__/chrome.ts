@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 global.chrome = {
   runtime: {
     sendMessage: jest.fn(),

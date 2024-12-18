@@ -2,7 +2,6 @@ import * as React from 'react';
 import { PanelNotificationsProps } from '../types';
 
 export default function PanelNotifications({ stage }: PanelNotificationsProps) {
-  console.log("******** STAGE:", stage);
   let currStage = '';
   switch (stage) {
     case 'hidden':

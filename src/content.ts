@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // console.log('CONTENT SCRIPT LOADED');
 let previousHighlightedText = '';
 let timeoutId: string | number | NodeJS.Timeout = null;
@@ -29,7 +30,7 @@ document.addEventListener('selectionchange', function () {
 });
 
 // Called on context menu clicked;
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener((request: { action: string; templateId: string; }) => {
   // console.log("Message received in content script:", request);
   const selection = window.getSelection().toString().trim();
   if (request.action === 'word-salad-sifter-context') {
