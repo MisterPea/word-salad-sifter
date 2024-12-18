@@ -45,7 +45,6 @@ export default function ProcessPanelOverlay({ stage = null }: ProcessPanelOverla
   }, [notifyText]);
 
 
-
   const progressMap = {
     // [circle 1, circle 2, circle 3, bar 1 color, bar 1 width, bar 2 color, bar 2 width, bar 3 color, bar 3 width ]
     zero: ['10px', '10px', '10px', '#dddddd', 0, '#dddddd', 0, '#dddddd', 0,],
@@ -54,11 +53,11 @@ export default function ProcessPanelOverlay({ stage = null }: ProcessPanelOverla
     three: ['10px', '10px', '100px', '#20aa35', 100, '#20aa35', 100, '#3b3b3b', 0,],
     four: ['10px', '10px', '10px', '#20aa35', 100, '#20aa35', 100, '#20aa35', 100,],
     hidden: ['10px', '10px', '10px', '#dddddd', 0, '#dddddd', 0, '#dddddd', 0,],
-    error: ['10px', '10px', '10px', '#dddddd', 0, '#dddddd', 0, '#dddddd', 0,],
+    error: ['10px', '10px', '10px', '#d70015', 10, '#d70015', 10, '#d70015', 10,],
   };
 
   const [wOne, wTwo, wThree, colorOne, finWidthOne, colorTwo, finWidthTwo, colorThree, finWidthThree] = progressMap[notifyText as PanelNotificationsType];
-  const textTranslate = { zero: -8, one: -8, two: -31, three: -54, four: -78, hidden: 350, error: 2000 };
+  const textTranslate = { zero: -8, one: -8, two: -31, three: -54, four: -78, hidden: 350, error: -100 };
 
   return (
     <div className="word_salad-overlay_wrapper">
@@ -70,10 +69,11 @@ export default function ProcessPanelOverlay({ stage = null }: ProcessPanelOverla
             <li style={{ opacity: notifyText === 'two' ? 1 : 0 }}>Processing Text via LLM</li>
             <li style={{ opacity: notifyText === 'three' ? 1 : 0 }}>Building Google Document</li>
             <li style={{ opacity: notifyText === 'four' ? 1 : 0 }}>Sifting Complete • Document Created</li>
+            <li style={{ opacity: notifyText === 'error' ? 1 : 0 }}>Error: Now Deleting Cloned Document</li>
           </ul>
         </div>
         <div className="word_salad-overlay_inner-bottom">
-          <div className={`word_salad-overlay-progress_bar-wrapper${notifyText === 'four' ? " complete" : ""}`}>
+          <div className={`word_salad-overlay-progress_bar-wrapper${notifyText === 'four' ? " complete" : ""}${notifyText === "error" ? " has-error" : ""}`}>
             <div className="word_salad-overlay-progress_bar one" style={{ minWidth: '10px', width: wOne }}>
               <div
                 className={`word_salad-overlay-progress_bar-inner one${notifyText === 'one' ? ' active' : ''}`}

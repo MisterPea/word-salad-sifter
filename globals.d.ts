@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module '*.png';
 declare module '*.jpg';
 declare module '*.jpeg';
@@ -10,7 +11,11 @@ declare global {
   }
   
   const chrome: {
+    [x: string]: any;
+    identity: any;
+    runtime: any;
     storage: {
+      [x: string]: any;
       local: {
         clear: jest.Mock;
         set: jest.Mock;

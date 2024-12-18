@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { PanelNotificationsType } from "../../types";
 
-export default function useNotifications(setNotifyText: React.Dispatch<React.SetStateAction<PanelNotificationsType>>, setEstimatedTime: React.Dispatch<React.SetStateAction<number>>) {
+export default function useNotifications(setNotifyText: React.Dispatch<React.SetStateAction<PanelNotificationsType>>, setEstimatedTime?: React.Dispatch<React.SetStateAction<number>>) {
   useEffect(() => {
     // Function to read from storage
     const getNotifyText = () => {
@@ -9,7 +9,7 @@ export default function useNotifications(setNotifyText: React.Dispatch<React.Set
         if (result.notifyText) {
           setNotifyText(result.notifyText);
         }
-        if (result.estimatedTime) {
+        if (setEstimatedTime && result.estimatedTime) {
           setEstimatedTime(result.estimatedTime);
         }
       });
@@ -25,7 +25,8 @@ export default function useNotifications(setNotifyText: React.Dispatch<React.Set
         if (changes.notifyText.newValue !== undefined && changes.notifyText.newValue !== 'close') {
           setNotifyText(changes.notifyText.newValue);
         }
-        if (changes.estimatedTime && changes.estimatedTime.newValue !== undefined && changes.estimatedTime.newValue !== null) {
+
+        if (setEstimatedTime && changes.estimatedTime && changes.estimatedTime.newValue !== undefined && changes.estimatedTime.newValue !== null) {
           setEstimatedTime(changes.estimatedTime.newValue);
         }
       }

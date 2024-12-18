@@ -6,14 +6,14 @@
  */
 export function getSetAuth() {
   return new Promise((resolve, reject) => {
-    chrome.storage.local.get(['authToken', 'tokenExpiry'], function (result) {
+    chrome.storage.local.get(['authToken', 'tokenExpiry'], function (result: { authToken: string; tokenExpiry: number; }) {
       const now = Date.now();
       if (result.authToken && result.tokenExpiry && now < result.tokenExpiry) {
         // Token exists and is not expired
         resolve(result.authToken);
       } else {
         // Token doesn't exist or is expired, get a new one
-        chrome.identity.getAuthToken({ interactive: true }, function (token) {
+        chrome.identity.getAuthToken({ interactive: true }, function (token: string) {
           if (chrome.runtime.lastError) {
             // Handle need to login new user.
             reject(new Error(chrome.runtime.lastError.message));

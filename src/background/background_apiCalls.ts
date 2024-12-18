@@ -15,7 +15,7 @@ type FetchOptions = {
   body?: string;
 };
 
-async function makeApiCall(method: Method, path: string, body?: ApiBody, isDrive?: 'delete' | 'create') {
+export async function makeApiCall(method: Method, path: string, body?: ApiBody, isDrive?: 'delete' | 'create') {
   const token = await getSetAuth();
   const headers = new Headers({
     'Authorization': `Bearer ${token}`,

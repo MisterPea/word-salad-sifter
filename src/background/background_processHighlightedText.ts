@@ -106,7 +106,7 @@ export async function processHighlightedText(text: string, templateId: string, n
       const overlayId = progressIframe._overlayId;
       progressIframe.removeElement(iframeIdDivId);
       progressIframe.removeElement(overlayId);
-
+      notifications.panelOnly('hidden');
       // We're waiting for the final animation to complete
       chrome.storage.local.get(['autoOpenDoc'], function (result) {
         if (result.autoOpenDoc === true) {
@@ -148,13 +148,14 @@ export async function processHighlightedText(text: string, templateId: string, n
     if (`${error}`.includes('404')) {
       handleGoogleDocError();
     } else if (`${error}`.includes('authentication_error')) {
-      handleAnthropicError();
+      handleAnthropicError(); // TODO: Handle these within the main overlay
     } else {
       handleGeneralError();
     }
     notifications.clear(notificationId);
     notifications.error(`There's been an error: Now Deleting Cloned Document`, notificationId);
     deleteDocument(newDocumentId);
+    setTimeout(() => notifications.panelOnly('hidden'), 2000);
   }
 }
 
@@ -233,24 +234,3 @@ function panelIsDeployed(): Promise<boolean> {
 function handleErrorOnPanel(errorLocation: string) {
   chrome.runtime.sendMessage({ action: "hasError", data: errorLocation }, function () { });
 }
-
-
-
-// [
-//   {
-//       "insertTable": {
-//           "rows": 1,
-//           "columns": 2,
-//           "location": {
-//               "index": 1
-//           }
-//       }
-//   },
-//   {
-//       "insertPageBreak": {
-//           "location": {
-//               "index": 6
-//           }
-//       }
-//   }
-// ]

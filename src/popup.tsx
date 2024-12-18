@@ -21,11 +21,11 @@ export default function Popup() {
   const [hasTemplateId, setHasTemplateId] = useState<boolean>(false);
   const [hasTextCaptured, setHasTextCaptured] = useState<boolean>(false);
   const [autoOpenDoc, setAutoOpenDoc] = useState<boolean>(true);
-  const [notifyText, setNotifyText] = useState<PanelNotificationsType | null>(null);
+  const [notifyText, setNotifyText] = useState<PanelNotificationsType>("hidden");
   const footerRef = useRef(null);
 
   // hook to pull notification passed through session messaging
-  useNotifications(setNotifyText,);
+  useNotifications(setNotifyText);
 
   const isValidApiKey = async (anthropicApiKey: string) => {
     const isValid = await validateAnthropicApiKey(anthropicApiKey);
@@ -96,7 +96,7 @@ export default function Popup() {
 
   // Test for panel notification 
   // useEffect(() => {
-  // const notifyArray: PanelNotificationsType[] = ['zero', 'one', 'two', 'three', 'four'];
+  //   const notifyArray: PanelNotificationsType[] = ['zero', 'one', 'two', 'three', 'four'];
   //   let i = 0;
   //   function loop() {
   //     setTimeout(function () {
@@ -161,7 +161,10 @@ export default function Popup() {
 
   return (
     <div className="main_module">
-      <PanelNotifications stage={notifyText} />
+      {/* This ternary arrived here because we moved the main notifications to the screen,
+      from the sidebar. Therefor, we need to reduce the role while still using the notifications
+      that are shared throughout the app. Else, we'll have to have 2 separate notifications systems */}
+      <PanelNotifications stage={["hidden", "error"].includes(notifyText) ? "hidden" : "zero"} />
       <AnimatePresence mode="wait">
         {/* If we don't know if API exists */}
         {hasApiKey === undefined && (

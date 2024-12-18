@@ -1,4 +1,4 @@
-import { PanelNotificationsType } from "./types";
+import { PanelNotificationsType } from "../types";
 
 export const notifications = {
   id: () => `${Math.random().toString(36).substring(2, 8)}`,

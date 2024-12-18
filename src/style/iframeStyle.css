@@ -99,7 +99,7 @@ ul {
 .word_salad-overlay_inner-top>ul {
   top: 8px;
   width: 100%;
-  position: absolute; 
+  position: absolute;
   transform: translateY(0), translateZ(0);
   transition: transform 900ms cubic-bezier(0.87, 0, 0.13, 1);
   font-size: 16px;
@@ -141,6 +141,36 @@ ul {
   opacity: 1;
 }
 
+/* On Error */
+.word_salad-overlay-progress_bar-wrapper.has-error .word_salad-overlay-progress_bar.one {
+  animation: bounce-error 600ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.word_salad-overlay-progress_bar-wrapper.has-error .word_salad-overlay-progress_bar.two {
+  animation: bounce-error 600ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  animation-delay: 100ms;
+}
+
+.word_salad-overlay-progress_bar-wrapper.has-error .word_salad-overlay-progress_bar.three {
+  animation: bounce-error 600ms cubic-bezier(0.65, 0, 0.35, 1) infinite;
+  animation-delay: 200ms;
+}
+
+@keyframes bounce-error {
+  0% {
+    transform: translateY(2px) scaleY(0.9);
+  }
+
+  50% {
+    transform: translateY(-4px) scaleY(1.05);
+
+  }
+
+  100% {
+    transform: translateY(2px) scaleY(0.9);
+  }
+}
+
 .word_salad-overlay-progress_bar-wrapper.complete {
   transform: translateY(30px);
   opacity: 0;
@@ -164,7 +194,6 @@ ul {
   overflow: hidden;
   border-radius: 10px;
 }
-
 
 .word_salad-overlay-progress_bar-inner.one,
 .word_salad-overlay-progress_bar-inner.two,
@@ -222,7 +251,7 @@ ul {
   border-radius: 50%;
   display: block;
   stroke-width: 2;
-  stroke:#ffffff;
+  stroke: #ffffff;
   stroke-miterlimit: 10;
   box-shadow: inset 0px 0px 0px #20aa35;
   animation:
