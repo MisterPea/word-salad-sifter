@@ -12,6 +12,7 @@ dist.zip
 
 src/.DS_Store
 src/manifest.json
+manifestTemplate.json
 src/prompts.ts
 
 .idea
