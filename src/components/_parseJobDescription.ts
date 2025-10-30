@@ -1,14 +1,19 @@
 export function _parseJobDescription(text: string, url: string | undefined): Record<string, string> {
-  const sections = text.split('\n\n');
+
+  const sections = text.split(/\n(?=\n*\*\*.*?:)/).filter(Boolean);
+
   const result: Record<string, string> = {};
 
   sections.forEach(section => {
-    const [key, ...valueLines] = section.split(':\n');
-    if (key && valueLines.length) {
-      result[key.trim()] = valueLines.join('\n').trim();
+    const [key, ...valueLines] = section.split('\n');
+    // remove markdown notation
+    const k = key.replace("**", '').replace(":**", '');
+    const v = valueLines.map((line) => line.replaceAll("**", ''));
+    if (k && valueLines.length) {
+      result[k.trim()] = v.join('\n').trim();
     }
   });
-  // console.log("URL:", url);
+
   if (url) {
     result["Job URL"] = url;
   }

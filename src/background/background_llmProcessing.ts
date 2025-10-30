@@ -6,18 +6,17 @@ const MAIN_PROMPT = prompts.main;
 
 const SANITY_CHECK = prompts.sanityCheck;
 
+// TODO: REPLACE
 export async function llmJobDescriptionProcessing(jobText: string): Promise<string> {
   let apiKey = undefined;
   try {
     apiKey = await getApiKey();
     const anthropic = new Anthropic({
       apiKey,
-      defaultHeaders: {
-        'anthropic-dangerous-direct-browser-access': 'true'
-      }
+      dangerouslyAllowBrowser: true
     });
     const msg = await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
+      model: 'claude-4-sonnet-20250514',
       max_tokens: 1024,
       messages: [{ role: "user", content: MAIN_PROMPT + jobText + SANITY_CHECK }]
     });
@@ -42,12 +41,10 @@ export async function validateAnthropicApiKey(apiKey: string | undefined): Promi
   try {
     const anthropic = new Anthropic({
       apiKey,
-      defaultHeaders: {
-        'anthropic-dangerous-direct-browser-access': 'true'
-      }
+      dangerouslyAllowBrowser: true
     });
     await anthropic.messages.create({
-      model: 'claude-3-5-sonnet-20240620',
+      model: 'claude-4-sonnet-20250514',
       max_tokens: 1,
       messages: [{ role: "user", content: "Test" }]
     });

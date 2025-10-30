@@ -62,9 +62,12 @@ export async function processHighlightedText(text: string, templateId: string, n
   let newDocumentId = undefined;
   try {
     const strTotal = text.length;
-    /*  The time estimate is a logarithmic curve - it's actual value is hard to know
-        as the time to process is based network condition and unknowable circumstances */
-    const estimatedTime = ((0.00151 * strTotal) + 10.17) * 0.65;
+    /* 
+    The time estimate is a logarithmic curve - it's actual value is hard to know
+    as the time to process is based network condition and unknowable circumstances 
+    Updated in `Update-LLM-Version` commit. New model seems to take a bit longer to process info
+    */
+    const estimatedTime = ((0.00151 * strTotal) + 14.17) * 0.65;
 
     // Initiate overlay
     progressIframe.initiate();

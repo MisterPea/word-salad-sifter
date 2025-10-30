@@ -94,8 +94,10 @@ export const progressIframe: ProgressIframeType = {
   removeElement: function (id) {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       // console.log("TABS:",tabs)
+
       if (!tabs[0]?.id) {
-        console.error("No active tab found.");
+        console.error("No active tab found.");   //TODO: remove everything in this case - there's an issue where the current tab isn't found - not sure what is causing this.
+        console.info(`Found:${tabs}`)
         return;
       }
 
