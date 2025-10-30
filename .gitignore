@@ -18,3 +18,4 @@ src/prompts.ts
 .idea
 src/userFiles/prompt.txt
 src/userFiles/experience.json
+test.js

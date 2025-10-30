@@ -2,7 +2,7 @@
   "name": "resume-fitter",
   "author": "Unartful Labs",
   "license": "MIT",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "description": "An Extension for Google Chrome to create a tailored resume based upon a job description.",
   "main": "popup.js",
   "scripts": {
@@ -61,7 +61,7 @@
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.24.3",
+    "@anthropic-ai/sdk": "^0.68.0",
     "framer-motion": "^11.5.4"
   }
 }
