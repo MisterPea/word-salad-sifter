@@ -4,6 +4,22 @@ import { _parseJobDescription } from "../components/_parseJobDescription";
 import { batchUpdate, cloneDocument, deleteDocument, getDocument, renameDocument } from "./background_apiCalls";
 import { notifications } from "./background_notifications";
 import { progressIframe } from "./background_processOverlay";
+import { toBackgroundError } from "./background_errors";
+
+type AutoOpenResult = {
+  autoOpenDoc?: boolean;
+};
+
+type UrlTab = {
+  url?: string;
+};
+
+type StoredWindowSelection = {
+  tabId?: number | null;
+  windowId?: number | null;
+};
+
+type RuntimeContextView = Record<string, unknown>;
 
 /**
  * Function that handles the processing and orchestration of api calls and document writes
@@ -42,11 +58,36 @@ export async function processHighlightedText(text: string, templateId: string, n
     return `${company}-${jobTitle}`;
   }
 
+  function scheduleSuccessTeardown(documentId: string) {
+    setTimeout(() => {
+      progressIframe.teardown();
+      notifications.panelOnly('hidden');
+      chrome.storage.local.get(['autoOpenDoc'], function (result: AutoOpenResult) {
+        if (result.autoOpenDoc === true) {
+          chrome.tabs.create({ url: `https://docs.google.com/document/d/${documentId}/edit` });
+        }
+      });
+    }, 1500);
+  }
+
+  function classifyError(error: unknown) {
+    const backgroundError = toBackgroundError(error);
+    switch (backgroundError.code) {
+      case 'GOOGLE_DOC_NOT_FOUND':
+        return { type: 'google-doc' as const, error: backgroundError };
+      case 'API_KEY_NOT_PRESENT':
+      case 'ANTHROPIC_AUTH':
+        return { type: 'anthropic' as const, error: backgroundError };
+      default:
+        return { type: 'general' as const, error: backgroundError };
+    }
+  }
+
   const notificationId = notifications.id();
 
   function getUrl(): Promise<undefined | string> {
     return new Promise((resolve) => {
-      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.query({ active: true, currentWindow: true }, function (tabs: UrlTab[]) {
         if (tabs && tabs[0]) {
           resolve(tabs[0].url);
         } else {
@@ -59,7 +100,9 @@ export async function processHighlightedText(text: string, templateId: string, n
   // ************************************************************* //
   // **** This try block is the orchestrator of the processes **** //
   // ************************************************************* //
-  let newDocumentId = undefined;
+  let newDocumentId: string | undefined = undefined;
+  let shouldDelayTeardown = false;
+  let successfulDocumentId: string | null = null;
   try {
     const strTotal = text.length;
     /* 
@@ -102,25 +145,12 @@ export async function processHighlightedText(text: string, templateId: string, n
     // Open newly created document
     notifications.clear(notificationId);
     notifications.panelOnly('four');
-
-    // ADD REMOVAL OF OVERLAY
-    setTimeout(() => {
-      const iframeIdDivId = progressIframe._iframeIdDivId;
-      const overlayId = progressIframe._overlayId;
-      progressIframe.removeElement(iframeIdDivId);
-      progressIframe.removeElement(overlayId);
-      notifications.panelOnly('hidden');
-      // We're waiting for the final animation to complete
-      chrome.storage.local.get(['autoOpenDoc'], function (result) {
-        if (result.autoOpenDoc === true) {
-          chrome.tabs.create({ url: `https://docs.google.com/document/d/${id}/edit` });
-        }
-      });
-    }, 1500);
+    shouldDelayTeardown = true;
+    successfulDocumentId = id;
 
     // Clearing the selected
     const activeWindow: { tabId: number | null, windowId: number | null; } = { tabId: null, windowId: null };
-    chrome.storage.session.get(['tabId', 'windowId'], function (data) {
+    chrome.storage.session.get(['tabId', 'windowId'], function (data: StoredWindowSelection) {
       if (data.tabId && data.windowId) {
         activeWindow.tabId = data.tabId;
         activeWindow.windowId = data.windowId;
@@ -145,20 +175,35 @@ export async function processHighlightedText(text: string, templateId: string, n
 
 
   } catch (error) {
-    chrome.storage.session.clear();
-    setTimeout(() => notifications.panelOnly('hidden'), 2000);
-    // Wrong Google Docs Address
-    if (`${error}`.includes('404')) {
-      handleGoogleDocError();
-    } else if (`${error}`.includes('authentication_error')) {
-      handleAnthropicError(); // TODO: Handle these within the main overlay
+    const classifiedError = classifyError(error);
+
+    if (classifiedError.type === 'google-doc') {
+      await handleGoogleDocError();
+    } else if (classifiedError.type === 'anthropic') {
+      await handleAnthropicError();
     } else {
-      handleGeneralError();
+      await handleGeneralError();
     }
-    notifications.clear(notificationId);
+
+    await notifications.clear(notificationId);
     notifications.error(`There's been an error: Now Deleting Cloned Document`, notificationId);
-    deleteDocument(newDocumentId);
-    setTimeout(() => notifications.panelOnly('hidden'), 2000);
+    notifications.panelOnly('hidden');
+
+    if (newDocumentId) {
+      try {
+        await deleteDocument(newDocumentId);
+      } catch (deleteError) {
+        console.error('Failed to delete cloned document after processing error.', deleteError);
+      }
+    }
+  } finally {
+    chrome.storage.session.clear();
+    if (shouldDelayTeardown && successfulDocumentId) {
+      scheduleSuccessTeardown(successfulDocumentId);
+    } else {
+      progressIframe.teardown();
+      notifications.panelOnly('hidden');
+    }
   }
 }
 
@@ -227,7 +272,7 @@ async function handleGeneralError() {
  */
 function panelIsDeployed(): Promise<boolean> {
   return new Promise((resolve) => {
-    chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.SIDE_PANEL] }, function (views) {
+    chrome.runtime.getContexts({ contextTypes: [chrome.runtime.ContextType.SIDE_PANEL] }, function (views: RuntimeContextView[]) {
       resolve(views.length > 0);
     });
   });

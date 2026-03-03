@@ -117,3 +117,4 @@ export interface PanelNotificationsProps {
   stage: 'zero' | 'one' | 'two' | 'three' | 'four' | 'error' | 'hidden';
 }
 export type PanelNotificationsType = 'zero' | 'one' | 'two' | 'three' | 'four' | 'error' | 'hidden';
+export type NotificationState = PanelNotificationsType | 'close';

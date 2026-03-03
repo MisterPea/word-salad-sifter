@@ -1,4 +1,4 @@
-import type { Preview } from "@storybook/react";
+import type { Preview } from "@storybook/react-webpack5";
 import '../src/style/mainStyle.scss';
 import '../src/ui/ui_style/iframeProgress.scss';
 import * as React from 'react';

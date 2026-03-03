@@ -1,5 +1,6 @@
 import { BatchUpdateRequest } from '../types';
 import { getSetAuth } from './background_auth';
+import { BackgroundError } from './background_errors';
 
 type ApiBody =
   | { title: string; }  // for createDocument
@@ -16,7 +17,14 @@ type FetchOptions = {
 };
 
 export async function makeApiCall(method: Method, path: string, body?: ApiBody, isDrive?: 'delete' | 'create') {
-  const token = await getSetAuth();
+  let token: string;
+
+  try {
+    token = await getSetAuth() as string;
+  } catch (error) {
+    throw new BackgroundError('NETWORK_ERROR', 'Failed to acquire Google auth token.', { cause: error });
+  }
+
   const headers = new Headers({
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json'
@@ -41,15 +49,31 @@ export async function makeApiCall(method: Method, path: string, body?: ApiBody, 
     options.body = JSON.stringify(body);
   }
 
-  const response = await fetch(url, options);
-
-  if (response.status !== 200) {
-    // console.log("THROWING FROM API CALL");
-    throw response.status;
-
-    // return Promise.reject(new Error(`${response.status}`));
+  let response: Response;
+  try {
+    response = await fetch(url, options);
+  } catch (error) {
+    throw new BackgroundError('NETWORK_ERROR', 'Network request failed.', { cause: error });
   }
-  return await response.json();
+
+  if (!response.ok) {
+    if (response.status === 404) {
+      throw new BackgroundError('GOOGLE_DOC_NOT_FOUND', `Google document resource not found: ${path}`, { status: response.status });
+    }
+
+    throw new BackgroundError('GOOGLE_API_ERROR', `Google API request failed: ${method} ${path}`, { status: response.status });
+  }
+
+  if (response.status === 204) {
+    return undefined;
+  }
+
+  const responseText = await response.text();
+  if (responseText.length === 0) {
+    return undefined;
+  }
+
+  return JSON.parse(responseText);
 }
 
 
@@ -66,11 +90,7 @@ async function batchUpdate(documentId: string, requests: BatchUpdateRequest[]) {
 }
 
 async function cloneDocument(templateId: string) {
-  try {
-    return makeApiCall('POST', `${templateId}/copy`, {}, 'create');
-  } catch (error) {
-    return new PromiseRejectionEvent('404', null);
-  }
+  return makeApiCall('POST', `${templateId}/copy`, {}, 'create');
 }
 
 async function renameDocument(documentId: string, newName: string) {
