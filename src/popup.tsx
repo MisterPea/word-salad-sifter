@@ -43,17 +43,17 @@ export default function Popup() {
   }, []);
 
   useEffect(() => {
-    const handleStorageChange = (changes, nameSpace) => {
+    const handleStorageChange = (changes: Record<string, { newValue?: string; }>) => {
       if (changes.highlightedText) {
         // We're saying: if changes.highlightedText is pinged check to see if highlightedText.newValue exists 
         // if it does evaluate length else return false (no newValue key exists)
-        const value = ('newValue' in changes.highlightedText) ? changes.highlightedText.newValue.length > 0 : false;
+        const value = ('newValue' in changes.highlightedText) ? (changes.highlightedText.newValue?.length || 0) > 0 : false;
         setHasTextCaptured(value);
       }
 
       if (changes.templateId) {
         // console.log("HAS CHANGE", changes.templateId.newValue.length, changes.templateId.newValue);
-        setHasTemplateId(changes.templateId.newValue.length > 0);
+        setHasTemplateId((changes.templateId.newValue?.length || 0) > 0);
       }
     };
 
@@ -77,15 +77,17 @@ export default function Popup() {
         }
       });
     };
-    chrome.storage.onChanged.addListener(function (changes, nameSpace) {
-      handleStorageChange(changes, nameSpace);
-    });
+    const storageListener = (changes: Record<string, { newValue?: string; }>) => {
+      handleStorageChange(changes);
+    };
+
+    chrome.storage.onChanged.addListener(storageListener);
 
     // We delaying the check api check so it's not abrupt.
     const timeOut: number = window.setTimeout(() => checkLocalStorage(), 400);
 
     return () => {
-      chrome.storage.onChanged.removeListener(handleStorageChange);
+      chrome.storage.onChanged.removeListener(storageListener);
       clearTimeout(timeOut);
     };
   }, []);

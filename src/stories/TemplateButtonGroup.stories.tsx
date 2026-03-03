@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import TemplateModule from '../ui/TemplateModule';
 // import '../style/main.scss';
 

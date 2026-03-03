@@ -1,9 +1,14 @@
-import { PanelNotificationsType } from "../types";
+import { NotificationState, PanelNotificationsType } from "../types";
+
+function setNotificationState(notifyText: NotificationState, estimatedTime?: number) {
+  const payload = estimatedTime === undefined ? { notifyText } : { notifyText, estimatedTime };
+  chrome.storage.session.set(payload);
+}
 
 export const notifications = {
   id: () => `${Math.random().toString(36).substring(2, 8)}`,
   make: (msg: string, panelNotify: PanelNotificationsType, estimatedTime:number, id: string) => {
-    chrome.storage.session.set({ notifyText: panelNotify, estimatedTime });
+    setNotificationState(panelNotify, estimatedTime);
     return chrome.notifications.create(id, {
       title: 'Word Salad Sifter',
       message: msg,
@@ -13,7 +18,7 @@ export const notifications = {
     });
   },
   update: (msg: string, panelNotify: PanelNotificationsType, id: string) => {
-    chrome.storage.session.set({ notifyText: panelNotify });
+    setNotificationState(panelNotify);
     return chrome.notifications.update(id, {
       title: 'Word Salad Sifter',
       message: msg,
@@ -23,7 +28,7 @@ export const notifications = {
     });
   },
   error: (msg: string, id: string) => {
-    chrome.storage.session.set({ notifyText: 'error' });
+    setNotificationState('error');
     return chrome.notifications.create(`${id}-error`, {
       title: 'Word Salad Sifter',
       message: msg,
@@ -33,10 +38,10 @@ export const notifications = {
     });
   },
   panelOnly: (panelNotify: PanelNotificationsType) => {
-    chrome.storage.session.set({ notifyText: panelNotify });
+    setNotificationState(panelNotify);
   },
   clear: (id: string) => {
-    chrome.storage.session.set({ notifyText: 'close' });
+    setNotificationState('close');
     return chrome.notifications.clear(id);
   }
 };

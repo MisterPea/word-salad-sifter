@@ -1,6 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getApiKey } from "./background_llmApiCalls";
 import { prompts } from "../prompts";
+import { BackgroundError } from "./background_errors";
 
 const MAIN_PROMPT = prompts.main;
 
@@ -11,6 +12,9 @@ export async function llmJobDescriptionProcessing(jobText: string): Promise<stri
   let apiKey = undefined;
   try {
     apiKey = await getApiKey();
+    if (!apiKey) {
+      throw new BackgroundError('API_KEY_NOT_PRESENT', 'Anthropic API key is not present.');
+    }
     const anthropic = new Anthropic({
       apiKey,
       dangerouslyAllowBrowser: true
@@ -24,12 +28,21 @@ export async function llmJobDescriptionProcessing(jobText: string): Promise<stri
     if (response.type === 'text') {
       return response.text;
     }
+    throw new BackgroundError('ANTHROPIC_RESPONSE_INVALID', 'Anthropic response did not include text content.');
   } catch (error) {
-    if (apiKey === undefined || apiKey === '') {
-      throw 'API_KEY_NOT_PRESENT';
-    } else {
-      throw error; // Error in Anthropic Guts
+    if (error instanceof BackgroundError) {
+      throw error;
     }
+
+    if (apiKey === undefined || apiKey === '') {
+      throw new BackgroundError('API_KEY_NOT_PRESENT', 'Anthropic API key is not present.', { cause: error });
+    }
+
+    if (error instanceof Error && 'status' in error && error.status === 401) {
+      throw new BackgroundError('ANTHROPIC_AUTH', 'Anthropic authentication failed.', { status: 401, cause: error });
+    }
+
+    throw new BackgroundError('UNKNOWN_ERROR', 'Anthropic processing failed.', { cause: error });
   }
 }
 

@@ -3,7 +3,22 @@ type ProgressIframeType = {
   _iframeId: string | null,
   _overlayId: string | null,
   initiate: () => void;
-  removeElement: (id: string) => void;
+  removeElement: (id: string | null) => void;
+  teardown: () => void;
+};
+
+type OverlayScriptResult = {
+  iframeDivId: string;
+  iframeId: string;
+  overlayId: string;
+};
+
+type ActiveTab = {
+  id?: number;
+};
+
+type InjectionResult<T> = {
+  result?: T;
 };
 
 export const progressIframe: ProgressIframeType = {
@@ -11,7 +26,7 @@ export const progressIframe: ProgressIframeType = {
   _iframeId: null,
   _overlayId: null,
   initiate: function () {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: ActiveTab[]) => {
       if (!tabs[0]?.id) return;
 
       chrome.scripting.executeScript(
@@ -80,7 +95,7 @@ export const progressIframe: ProgressIframeType = {
             return { iframeDivId: iframeDiv.id, iframeId: iframe.id, overlayId: overlay.id };
           },
         },
-        (results) => {
+        (results?: InjectionResult<OverlayScriptResult>[]) => {
           if (results && results[0]?.result) {
             const { iframeId, overlayId, iframeDivId } = results[0].result;
             this._iframeId = iframeId;
@@ -92,19 +107,19 @@ export const progressIframe: ProgressIframeType = {
     });
   },
   removeElement: function (id) {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      // console.log("TABS:",tabs)
+    if (!id) {
+      return;
+    }
 
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs: ActiveTab[]) => {
       if (!tabs[0]?.id) {
-        console.error("No active tab found.");   //TODO: remove everything in this case - there's an issue where the current tab isn't found - not sure what is causing this.
-        console.info(`Found:${tabs}`)
         return;
       }
 
       chrome.scripting.executeScript(
         {
           target: { tabId: tabs[0].id },
-          func: (elementId) => {
+          func: (elementId: string) => {
             const elementRef = document.getElementById(elementId);
             if (elementRef && elementId === 'word_salad_sifter-iframe-div') {
               const iframeRef = document.getElementById('word_salad_sifter-iframe')
@@ -131,5 +146,12 @@ export const progressIframe: ProgressIframeType = {
         }
       );
     });
+  },
+  teardown: function () {
+    this.removeElement(this._iframeIdDivId);
+    this.removeElement(this._overlayId);
+    this._iframeIdDivId = null;
+    this._iframeId = null;
+    this._overlayId = null;
   },
 };

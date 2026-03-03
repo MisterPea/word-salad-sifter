@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { PanelNotificationsType } from "../../types";
+import { NotificationState, PanelNotificationsType } from "../../types";
 
 export default function useNotifications(setNotifyText: React.Dispatch<React.SetStateAction<PanelNotificationsType>>, setEstimatedTime?: React.Dispatch<React.SetStateAction<number>>) {
   useEffect(() => {
     // Function to read from storage
     const getNotifyText = () => {
-      chrome.storage.session.get(['notifyText', 'estimatedTime'], (result) => {
-        if (result.notifyText) {
+      chrome.storage.session.get(['notifyText', 'estimatedTime'], (result: { notifyText?: NotificationState; estimatedTime?: number; }) => {
+        if (result.notifyText && result.notifyText !== 'close') {
           setNotifyText(result.notifyText);
         }
         if (setEstimatedTime && result.estimatedTime) {
@@ -19,7 +19,7 @@ export default function useNotifications(setNotifyText: React.Dispatch<React.Set
     getNotifyText();
 
     // Set up listener for changes
-    const listener = (changes, namespace: 'session' | string) => {
+    const listener = (changes: { notifyText?: { newValue?: NotificationState; }; estimatedTime?: { newValue?: number; }; }, namespace: 'session' | string) => {
       if (namespace === 'session' && changes.notifyText) {
         // Filtering for noise from main notifications
         if (changes.notifyText.newValue !== undefined && changes.notifyText.newValue !== 'close') {
